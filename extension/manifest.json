@@ -1,0 +1,23 @@
+{
+    "manifest_version": 3,
+    "name": "Site Nuke – Clear Data for Current Tab",
+    "version": "1.0.0",
+    "description": "One-click: clear cookies and site data for the current tab only, then reload.",
+    "action": {
+      "default_title": "Clear site data for current tab"
+    },
+    "background": {
+      "service_worker": "service_worker.js"
+    },
+    "permissions": [
+      "tabs",
+      "activeTab",
+      "cookies",
+      "browsingData"
+    ],
+    "host_permissions": [
+      "http://*/*",
+      "https://*/*"
+    ]
+  }
+  
