@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Feedback — Site Nuke</title>
+    <style>
+      :root {
+        --bg: #0b1220;
+        --panel: #111827;
+        --text: #e5e7eb;
+        --muted: #9ca3af;
+        --line: rgba(255, 255, 255, 0.12);
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      }
+      .wrap { max-width: 720px; margin: 0 auto; padding: 28px 18px; }
+      h1 { margin: 0 0 6px; font-size: 20px; }
+      p { margin: 0 0 16px; color: var(--muted); line-height: 1.45; }
+      .card { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 14px; margin-bottom: 14px; }
+      .row { display: flex; gap: 10px; flex-wrap: wrap; }
+      .btn {
+        display: inline-flex; align-items: center; justify-content: center;
+        background: #1f2937; border: 1px solid var(--line); color: var(--text);
+        padding: 10px 12px; border-radius: 10px; cursor: pointer;
+        text-decoration: none; font-weight: 700;
+      }
+      .btn.primary { background: #2563eb; }
+      textarea {
+        width: 100%; min-height: 130px; resize: vertical;
+        padding: 10px; border-radius: 10px;
+        border: 1px solid var(--line);
+        background: rgba(0,0,0,0.25); color: var(--text);
+        box-sizing: border-box;
+      }
+      .hint { font-size: 12px; color: var(--muted); margin-top: 8px; }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <h1>Thanks for trying Site Nuke</h1>
+      <p>
+        If you have 30 seconds, optional feedback helps improve the extension.
+        This is a free project — no tracking.
+      </p>
+
+      <div class="card">
+        <h2 style="margin:0 0 10px; font-size:16px;">What should be better?</h2>
+        <p style="margin:0 0 12px;">This opens a pre-filled GitHub Issue draft in a new tab. You can edit before posting.</p>
+        <div class="row">
+          <a class="btn primary" id="send" href="#">Send feedback</a>
+          <a class="btn" href="https://github.com/eventh0riz0n/site-nuke/issues" target="_blank" rel="noreferrer noopener">View issues</a>
+        </div>
+        <div style="margin-top: 12px;">
+          <textarea id="text" placeholder="Write a short note. Example:
+- Why you uninstalled
+- What you expected
+- Browser + version
+- A site where it failed"></textarea>
+          <div class="hint">If this page opened after uninstall: that’s expected. It’s the extension’s uninstall feedback URL.</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 style="margin:0 0 10px; font-size:16px;">Prefer not to use GitHub?</h2>
+        <p style="margin:0;">No worries — you can just close this tab.</p>
+      </div>
+    </div>
+
+    <script>
+      const $ = (id) => document.getElementById(id);
+      const base = 'https://github.com/eventh0riz0n/site-nuke/issues/new';
+      function buildUrl(body) {
+        const params = new URLSearchParams({
+          title: 'Uninstall feedback',
+          body: body || ''
+        });
+        return `${base}?${params.toString()}`;
+      }
+      $('send').addEventListener('click', (e) => {
+        e.preventDefault();
+        const body = $('text').value.trim();
+        window.open(buildUrl(body), '_blank', 'noopener,noreferrer');
+      });
+    </script>
+  </body>
+</html>
