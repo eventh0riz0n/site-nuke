@@ -158,6 +158,13 @@ async function nukeCurrentTab() {
   clearBadgeLater();
 }
 
+chrome.runtime.onInstalled.addListener(() => {
+  // Optional uninstall feedback page (no tracking; user can ignore).
+  try {
+    chrome.runtime.setUninstallURL("https://eventh0riz0n.github.io/site-nuke/uninstall.html");
+  } catch {}
+});
+
 chrome.action.onClicked.addListener(() => {
   nukeCurrentTab().catch(async (e) => {
     console.error("Unexpected failure:", e);
