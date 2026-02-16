@@ -13,3 +13,6 @@ The extension:
 The extension only acts on the currently active website when explicitly triggered by the user.
 
 No data ever leaves the user’s device.
+
+## Uninstall feedback page (optional)
+If you uninstall the extension, it may open an optional feedback page hosted on GitHub Pages. You can ignore it and close the tab.
