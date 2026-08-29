@@ -7,16 +7,15 @@ NAME="site-nuke"
 
 mkdir -p "$OUT"
 ZIP="$OUT/$NAME-webstore.zip"
-rm -f "$ZIP"
+SOURCE="extension"
 
-if command -v zip >/dev/null 2>&1; then
-  (cd "$ROOT" && zip -r "$ZIP" . \
-    -x "./.git/*" \
-    -x "./dist/*" \
-    -x "./node_modules/*" \
-    -x "./scripts/*")
-  echo "Wrote $ZIP"
-else
-  echo "zip not found. Install zip or package manually." >&2
+if [[ -n "$(git -C "$ROOT" status --porcelain --untracked-files=normal -- "$SOURCE")" ]]; then
+  echo "extension sources have uncommitted files; commit them before packaging" >&2
   exit 1
 fi
+
+# Archive only the committed extension subtree and place manifest.json at the
+# ZIP root, as required by Chrome Web Store. Ignored local credentials and
+# data are excluded by construction rather than by a fragile zip denylist.
+git -C "$ROOT" archive --format=zip --output="$ZIP" "HEAD:$SOURCE"
+echo "Wrote $ZIP"

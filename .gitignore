@@ -3,3 +3,18 @@ Thumbs.db
 *.zip
 node_modules/
 dist/
+
+# Local data and credentials
+.env
+.env.*
+!.env.example
+*.db
+*.sqlite
+*.sqlite3
+*.log
+*.pem
+*.key
+*.p12
+*.pfx
+id_rsa*
+id_ed25519*
